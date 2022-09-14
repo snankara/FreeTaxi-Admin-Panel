@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  gatewayServer: 'http://localhost:5555/gateway',
   production: false
 };
 

@@ -1,0 +1,84 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <app-driver-create></app-driver-create>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-danger p-button-sm"
+                            [disabled]="!selectedDrivers || !selectedDrivers.length" (click)="deleteAll()"></button>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                    <!-- Filter temizleme butonu gelicek. -->
+                </ng-template>
+            </p-toolbar>
+
+            <p-table #dt [value]="drivers" responsiveLayout="scroll" [rows]="10"
+                [globalFilterFields]="['userId','firstName','lastName','birthDate']" [rows]="10" [paginator]="true"
+                [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [(selection)]="selectedDrivers" selectionMode="multiple" [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Manage Drivers</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text"
+                                (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                                placeholder="Search..." />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="userId">User ID <p-sortIcon field="userId"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="firstName">First Name <p-sortIcon field="firstName"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="lastName">Last Name <p-sortIcon field="lastName"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="birthDate">Birth Date <p-sortIcon field="birthDate"></p-sortIcon>
+                        </th>
+                        <th>Operations</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-driver>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="driver"></p-tableCheckbox>
+                        </td>
+                        <td><span class="p-column-title">Code</span>
+                            {{driver.id}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">First Name</span>
+                            {{driver.firstName}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Last Name</span>
+                            {{driver.lastName}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Birth Date</span>
+                            {{driver.birthDate}}
+                        </td>
+                        <td>
+                            <div class="flex">
+                                <!-- <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success mr-2"></button> -->
+                                <app-driver-update [driverResponseModel]="driver"></app-driver-update>
+                                <button pButton pRipple icon="pi pi-trash"
+                                    class="p-button-rounded p-button-warning p-button-sm"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

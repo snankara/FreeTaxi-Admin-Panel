@@ -1,0 +1,51 @@
+<button pButton pRipple icon="pi pi-pencil" (click)="openDialog()"
+    class="p-button-rounded p-button-outlined p-button-success p-button-sm mr-2"></button>
+<p-dialog [(visible)]="driverUpdateDialog" [style]="{width: '450px'}" header="Update Driver" [modal]="true"
+    [closable]="false" [maximizable]="true" [resizable]="false" class="p-fluid">
+
+    <ng-template pTemplate="content">
+        <form [formGroup]="driverUpdateForm">
+
+            <div class="field">
+                <label for="firstName">First Name</label>
+                <input id="firstName" type="text" pInputText
+                    [ngClass]="{'ng-invalid ng-dirty': formSubmitted && driverUpdateForm.controls['firstName'].invalid}"
+                    placeholder="Enter your first name" formControlName="firstName" />
+                <small class="ng-dirty ng-invalid"
+                    *ngIf="formSubmitted && driverUpdateForm.controls['firstName'].invalid">First Name is
+                    required.</small>
+            </div>
+            <div class="field">
+                <label for="lastName">Last Name</label>
+                <input id="lastName" type="text" pInputText
+                    [ngClass]="{'ng-invalid ng-dirty': formSubmitted && driverUpdateForm.controls['lastName'].invalid}"
+                    placeholder="Enter your last name" formControlName="lastName" />
+                <small class="ng-dirty ng-invalid"
+                    *ngIf="formSubmitted && driverUpdateForm.controls['lastName'].invalid">Last Name is
+                    required.</small>
+            </div>
+            <div class="field">
+                <label for="birthDate">Birth Date</label>
+                <p-calendar id="birthDate" dateFormat="dd.mm.yy" appendTo="body" pTooltip="day.month.year"
+                    tooltipPosition="top" placeholder="Enter your birth date"
+                    [ngClass]="{'ng-invalid ng-dirty': formSubmitted && driverUpdateForm.controls['birthDate'].invalid}"
+                    formControlName="birthDate">
+                </p-calendar>
+                <small class="ng-dirty ng-invalid"
+                    *ngIf="formSubmitted && driverUpdateForm.controls['birthDate'].invalid">Birth Date is
+                    required.</small>
+            </div>
+
+        </form>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="confirm()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '50vw'}" [key]="createConfirmDialogKey()" [baseZIndex]="10000"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+<p-toast></p-toast>
