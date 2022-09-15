@@ -1,0 +1,7 @@
+version: '3'
+services:
+  angular-docker:
+    container_name: admin-panel-container
+    build: /free-taxi-admin-panel
+    ports:
+      - '9000:80'
