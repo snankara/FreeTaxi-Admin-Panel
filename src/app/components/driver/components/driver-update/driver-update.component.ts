@@ -24,8 +24,6 @@ export class DriverUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-    console.log(this.createConfirmDialogKey());
-
   }
 
   buildForm() {

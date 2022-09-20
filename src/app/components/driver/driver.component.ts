@@ -1,5 +1,6 @@
 import { DriverResponseModel } from './models/response-models/driver-response-model';
 import { Component, OnInit } from '@angular/core';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-driver',
@@ -8,8 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DriverComponent implements OnInit {
 
-  drivers : DriverResponseModel[] = [{id: 1, userId : 1, birthDate: '22.10.2022', firstName: 'Ahmet', lastName: 'Çetin'},
-  {id: 2, userId : 2, birthDate: '25.03.1999', firstName: 'Sinan', lastName: 'Kara'}]
+  drivers : DriverResponseModel[] = [{id: 1, userId : 1, birthDate: '10/22/2022', firstName: 'Ahmet', lastName: 'Çetin'},
+  {id: 2, userId : 2, birthDate: '03/25/1999', firstName: 'Sinan', lastName: 'Kara'}]
   
   selectedDrivers: DriverResponseModel []
 
@@ -20,7 +21,10 @@ export class DriverComponent implements OnInit {
 
 
   deleteAll(){
-    console.log(this.selectedDrivers);
-    
+    console.log(this.selectedDrivers); 
+  }
+
+  clearFilter(driversTable: Table){
+    driversTable.clear();
   }
 }
