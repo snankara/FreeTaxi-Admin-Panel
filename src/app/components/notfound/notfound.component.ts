@@ -1,3 +1,4 @@
+import { ModeService } from './../../services/mode.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class NotfoundComponent{
 
+  constructor(public modeService: ModeService) {}
+
+  isLightMode() {
+    return this.modeService.isLightMode();
+  }
 }

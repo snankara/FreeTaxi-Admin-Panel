@@ -18,12 +18,14 @@ import {TooltipModule} from 'primeng/tooltip';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DriverUpdateComponent } from './components/driver-update/driver-update.component';
+import { DriverListComponent } from './components/driver-list/driver-list.component';
 
 @NgModule({
   declarations: [
     DriverCreateComponent,
     DriverComponent,
-    DriverUpdateComponent
+    DriverUpdateComponent,
+    DriverListComponent
   ],
   imports: [
     CommonModule,
