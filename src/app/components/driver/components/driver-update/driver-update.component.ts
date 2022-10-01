@@ -1,8 +1,8 @@
+import { DriverListResponseModel } from './../../models/response-models/driver-list-response-model';
 import { DriverUpdateRequestModel } from './../../models/request-models/driver-update-request-model';
 import { ConfirmService } from './../../../../services/confirm.service';
 import { DriverService } from './../../service/driver.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DriverResponseModel } from './../../models/response-models/driver-response-model';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -17,7 +17,7 @@ export class DriverUpdateComponent implements OnInit {
 
   driverUpdateForm: FormGroup
 
-  @Input() driverResponseModel: DriverResponseModel
+  @Input() driverListResponseModel: DriverListResponseModel
 
   constructor(private formBuilder: FormBuilder, private driverService: DriverService,
     private confirmService: ConfirmService) { }
@@ -28,9 +28,9 @@ export class DriverUpdateComponent implements OnInit {
 
   buildForm() {
     this.driverUpdateForm = this.formBuilder.group({
-      firstName: [this.driverResponseModel.firstName, Validators.required],
-      lastName: [this.driverResponseModel.lastName, Validators.required],
-      birthDate: [this.driverResponseModel.birthDate, Validators.required]
+      firstName: [this.driverListResponseModel.firstName, Validators.required],
+      lastName: [this.driverListResponseModel.lastName, Validators.required],
+      birthDate: [this.driverListResponseModel.birthDate, Validators.required]
     })
   }
 
@@ -50,8 +50,8 @@ export class DriverUpdateComponent implements OnInit {
 
   prepareDriverUpdateData(): DriverUpdateRequestModel {
     let driverUpdateRequestModel: DriverUpdateRequestModel = Object.assign({
-      id: this.driverResponseModel.id,
-      userId: this.driverResponseModel.userId
+      id: this.driverListResponseModel.id,
+      userId: this.driverListResponseModel.userId
     }, this.driverUpdateForm.value)
 
     return driverUpdateRequestModel;
@@ -67,7 +67,7 @@ export class DriverUpdateComponent implements OnInit {
   }
 
   createConfirmDialogKey(): string {
-    return (this.driverResponseModel.id + this.driverResponseModel.userId).toString() + 
-    this.driverResponseModel.firstName.substring(0, 2)
+    return (this.driverListResponseModel.id + this.driverListResponseModel.userId).toString() + 
+    this.driverListResponseModel.firstName.substring(0, 2)
   }
 }

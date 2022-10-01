@@ -1,9 +1,10 @@
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { MenuService } from './shared/menu/service/menu.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,10 +21,14 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { BadgeModule } from 'primeng/badge';
 import { RippleModule } from 'primeng/ripple';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -51,9 +56,17 @@ import { RippleModule } from 'primeng/ripple';
     ButtonModule,
     ScrollPanelModule,
     BadgeModule,
-    RippleModule
+    RippleModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
-  providers: [MenuService, MessageService, ConfirmationService],
+  providers: [
+    MenuService,
+    MessageService,
+    ConfirmationService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

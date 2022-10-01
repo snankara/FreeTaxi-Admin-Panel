@@ -1,3 +1,8 @@
+import { selectDrivers } from './../../store/driver.selectors';
+import { invokeRetrieveAll } from './../../store/driver.actions';
+import { Store, select } from '@ngrx/store';
+import { MessageService } from 'primeng/api';
+import { DriverService } from './../../service/driver.service';
 import { Table } from 'primeng/table';
 import { DriverResponseModel } from './../../models/response-models/driver-response-model';
 import { Component, OnInit } from '@angular/core';
@@ -9,21 +14,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DriverListComponent implements OnInit {
 
-  drivers : DriverResponseModel[] = [{id: 1, userId : 1, birthDate: '10/22/2022', firstName: 'Ahmet', lastName: 'Çetin'},
-  {id: 2, userId : 2, birthDate: '03/25/1999', firstName: 'Sinan', lastName: 'Kara'}]
+  selectedDrivers: DriverResponseModel[]
 
-  selectedDrivers: DriverResponseModel []
+  drivers$ = this.store.pipe(select(selectDrivers))
 
-  constructor() { }
+  constructor(private store: Store, private messageService: MessageService, private driverService: DriverService) { }
 
   ngOnInit(): void {
+    this.retrieveAll();
   }
 
-  deleteAll(){
-    console.log(this.selectedDrivers); 
+  deleteAll() {
+    console.log(this.selectedDrivers);
   }
 
-  clearFilter(driversTable: Table){
+  clearFilter(driversTable: Table) {
     driversTable.clear();
+  }
+
+  retrieveAll() {
+    this.store.dispatch(invokeRetrieveAll());
   }
 }

@@ -1,3 +1,7 @@
+import { DriverEffect } from './store/driver.effect';
+import { EffectsModule } from '@ngrx/effects';
+import { driverReducer } from './store/driver.reducer';
+import { StoreModule } from '@ngrx/store';
 import { DriverComponent } from './driver.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -41,7 +45,9 @@ import { DriverListComponent } from './components/driver-list/driver-list.compon
     CalendarModule,
     ConfirmDialogModule,
     ToastModule,
-    TooltipModule
+    TooltipModule,
+    StoreModule.forFeature('drivers', driverReducer),
+    EffectsModule.forFeature([DriverEffect])
   ]
 })
 export class DriverModule { }

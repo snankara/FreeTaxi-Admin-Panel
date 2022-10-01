@@ -1,3 +1,4 @@
+import { MultiResponseModel } from './../../../models/response-models/multi-response-model';
 import { environment } from './../../../../environments/environment.prod';
 import { DriverUpdateResponseModel } from './../models/response-models/driver-update-response-model';
 import { DriverUpdateRequestModel } from './../models/request-models/driver-update-request-model';
@@ -8,13 +9,14 @@ import { DriverCreateRequestModel } from './../models/request-models/driver-crea
 //import { environment } from './../../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { DriverListResponseModel } from '../models/response-models/driver-list-response-model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DriverService {
 
-  private readonly gatewayServer: string = `${environment.gatewayServer}/driver`
+  private readonly gatewayServer: string = `${environment.gatewayServerLocal}/driver`
 
   constructor(private httpClient: HttpClient) { }
 
@@ -28,5 +30,9 @@ export class DriverService {
 
   retrieve(driverId: number) {
     return this.httpClient.get<SingleResponseModel<DriverResponseModel>>(`${this.gatewayServer}/${driverId}`);
+  }
+
+  retrieveAll() {
+    return this.httpClient.get<DriverListResponseModel[]>(`${this.gatewayServer}/retrieveAll`);
   }
 }

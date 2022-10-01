@@ -16,8 +16,8 @@
                 </ng-template>
             </p-toolbar>
 
-            <p-table #driversTable [value]="drivers" responsiveLayout="scroll" [rows]="10"
-                [globalFilterFields]="['userId','firstName','lastName','birthDate']" [rows]="10" [paginator]="true"
+            <p-table #driversTable [value]="drivers$ | async" responsiveLayout="scroll" [rows]="10"
+                [globalFilterFields]="['firstName','lastName','birthDate']" [rows]="10" [paginator]="true"
                 [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                 [(selection)]="selectedDrivers" selectionMode="multiple" [rowHover]="true" dataKey="id">
@@ -37,9 +37,6 @@
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                        <th pSortableColumn="userId">User ID <p-sortIcon field="userId"></p-sortIcon>
-                        </th>
-
                         <th pSortableColumn="firstName">
                             First Name<p-sortIcon field="firstName"></p-sortIcon>
                             <p-columnFilter type="text" field="firstName" display="menu"></p-columnFilter>
@@ -64,7 +61,6 @@
                         <td>
                             <p-tableCheckbox [value]="driver"></p-tableCheckbox>
                         </td>
-                        <td>{{driver.id}}</td>
                         <td>{{driver.firstName}}</td>
                         <td>{{driver.lastName}}</td>
                         <td>{{driver.birthDate}}
@@ -73,12 +69,17 @@
                             <div class="flex">
                                 <!-- <button pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-button-success mr-2"></button> -->
-                                <app-driver-update [driverResponseModel]="driver"></app-driver-update>
+                                <app-driver-update [driverListResponseModel]="driver"></app-driver-update>
                                 <button pButton pRipple icon="pi pi-trash"
                                     class="p-button-rounded p-button-warning p-button-sm"></button>
                             </div>
                         </td>
                     </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="flex align-items-center justify-content-between">
+                        <!-- In total there are {{drivers$ ? drivers$ : 0 }} drivers. -->
+                    </div>
                 </ng-template>
             </p-table>
         </div>
