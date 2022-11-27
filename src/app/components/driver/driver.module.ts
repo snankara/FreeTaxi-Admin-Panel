@@ -1,6 +1,6 @@
 import { DriverEffect } from './store/driver.effect';
 import { EffectsModule } from '@ngrx/effects';
-import { driverReducer } from './store/driver.reducer';
+import { driverFeature } from './store/driver.reducer';
 import { StoreModule } from '@ngrx/store';
 import { DriverComponent } from './driver.component';
 import { NgModule } from '@angular/core';
@@ -19,6 +19,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import {TooltipModule} from 'primeng/tooltip';
+import {MessagesModule} from 'primeng/messages';
+import {SkeletonModule} from 'primeng/skeleton';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DriverUpdateComponent } from './components/driver-update/driver-update.component';
@@ -46,7 +48,9 @@ import { DriverListComponent } from './components/driver-list/driver-list.compon
     ConfirmDialogModule,
     ToastModule,
     TooltipModule,
-    StoreModule.forFeature('drivers', driverReducer),
+    MessagesModule,
+    SkeletonModule,
+    StoreModule.forFeature(driverFeature),
     EffectsModule.forFeature([DriverEffect])
   ]
 })

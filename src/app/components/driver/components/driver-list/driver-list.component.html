@@ -1,6 +1,7 @@
 <div class="grid">
     <div class="col-12">
-        <div class="card">
+        <p-messages severity="error" [closable]="false"></p-messages>
+        <div class="card" *ngIf="(drivers$ | async).loaded">
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
                     <div class="my-2">
@@ -16,7 +17,7 @@
                 </ng-template>
             </p-toolbar>
 
-            <p-table #driversTable [value]="drivers$ | async" responsiveLayout="scroll" [rows]="10"
+            <p-table #driversTable [value]="(drivers$ | async).data" responsiveLayout="scroll" [rows]="10"
                 [globalFilterFields]="['firstName','lastName','birthDate']" [rows]="10" [paginator]="true"
                 [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -56,7 +57,6 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-driver>
-
                     <tr>
                         <td>
                             <p-tableCheckbox [value]="driver"></p-tableCheckbox>
@@ -69,7 +69,7 @@
                             <div class="flex">
                                 <!-- <button pButton pRipple icon="pi pi-pencil"
                                     class="p-button-rounded p-button-success mr-2"></button> -->
-                                <app-driver-update [driverListResponseModel]="driver"></app-driver-update>
+                                <!-- <app-driver-update [driverListResponseModel]="driver"></app-driver-update> -->
                                 <button pButton pRipple icon="pi pi-trash"
                                     class="p-button-rounded p-button-warning p-button-sm"></button>
                             </div>
@@ -78,8 +78,66 @@
                 </ng-template>
                 <ng-template pTemplate="summary">
                     <div class="flex align-items-center justify-content-between">
-                        <!-- In total there are {{drivers$ ? drivers$ : 0 }} drivers. -->
+                        In total there are {{(drivers$ | async) ? (drivers$ | async).data.length : 0 }} drivers.
                     </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <div class="card" *ngIf="(drivers$ | async).loading">
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="flex align-items-end">
+                        <p-skeleton width="5.4rem" height="2.8rem" borderRadius="10px"></p-skeleton>
+                        <p-skeleton width="3rem" height="2.8rem" borderRadius="10px" styleClass="ml-2"></p-skeleton>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                    <p-skeleton width="5.4rem" height="2.8rem" borderRadius="10px"></p-skeleton>
+                </ng-template>
+            </p-toolbar>
+            <p-table responsiveLayout="scroll">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <p-skeleton width="13rem" height="2.2rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
+                        <p-skeleton width="18rem" height="2.8rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>
+                            <p-skeleton size="1.5rem" styleClass="mr-2"></p-skeleton>
+                        </th>
+                        <th>
+                            <p-skeleton width="9rem" height="1.5rem" borderRadius="16px"></p-skeleton>
+                        </th>
+                        <th>
+                            <p-skeleton width="9rem" height="1.5rem" borderRadius="16px"></p-skeleton>
+                        </th>
+                        <th>
+                            <p-skeleton width="9rem" height="1.5rem" borderRadius="16px"></p-skeleton>
+                        </th>
+                        <th>
+                            <p-skeleton width="9rem" height="1.5rem" borderRadius="16px"></p-skeleton>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template>
+                    <tr>
+                        <td>
+                            <p-skeleton size="1.5rem"></p-skeleton>
+                        </td>
+                        <td>
+                            <p-skeleton width="9rem" height="1.5rem" borderRadius="16px"></p-skeleton>
+                        </td>
+                        <td>
+                            <p-skeleton></p-skeleton>
+                        </td>
+                        <td>
+                            <p-skeleton></p-skeleton>
+                        </td>
+                    </tr>
                 </ng-template>
             </p-table>
         </div>

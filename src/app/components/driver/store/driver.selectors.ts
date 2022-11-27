@@ -1,4 +1,5 @@
-import { DriverListResponseModel } from './../models/response-models/driver-list-response-model';
+import { DriverListState, DRIVER_FEATURE_KEY } from './driver.reducer';
 import { createFeatureSelector } from "@ngrx/store";
 
-export const selectDrivers = createFeatureSelector<DriverListResponseModel[]>('drivers')
+export const selectDrivers = createFeatureSelector<DriverListState>(DRIVER_FEATURE_KEY)
+

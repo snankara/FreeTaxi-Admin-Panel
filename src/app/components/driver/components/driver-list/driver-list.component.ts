@@ -1,8 +1,9 @@
+import { Observable } from 'rxjs';
+import { DriverListState } from './../../store/driver.reducer';
 import { selectDrivers } from './../../store/driver.selectors';
-import { invokeRetrieveAll } from './../../store/driver.actions';
-import { Store, select } from '@ngrx/store';
+import { getDataActions } from './../../store/driver.actions';
+import { Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
-import { DriverService } from './../../service/driver.service';
 import { Table } from 'primeng/table';
 import { DriverResponseModel } from './../../models/response-models/driver-response-model';
 import { Component, OnInit } from '@angular/core';
@@ -10,18 +11,21 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-driver-list',
   templateUrl: './driver-list.component.html',
-  styleUrls: ['./driver-list.component.scss']
+  styleUrls: ['./driver-list.component.scss'],
+  providers: [MessageService]
 })
 export class DriverListComponent implements OnInit {
 
   selectedDrivers: DriverResponseModel[]
+  drivers$: Observable<DriverListState> = this.store.select(selectDrivers)
 
-  drivers$ = this.store.pipe(select(selectDrivers))
-
-  constructor(private store: Store, private messageService: MessageService, private driverService: DriverService) { }
+  constructor(private store: Store,
+    private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.retrieveAll();
+    this.isRetrieveAllFail()
+
   }
 
   deleteAll() {
@@ -33,6 +37,13 @@ export class DriverListComponent implements OnInit {
   }
 
   retrieveAll() {
-    this.store.dispatch(invokeRetrieveAll());
+    this.store.dispatch(getDataActions.invokeRetrieveAll());
+  }
+
+  isRetrieveAllFail() {
+    this.drivers$.subscribe(state => {
+      if (!state.loaded && !state.loading)
+        this.messageService.add({ severity: 'error', summary: 'Service Message', detail: 'Retrieve All Failure !' });
+    })
   }
 }

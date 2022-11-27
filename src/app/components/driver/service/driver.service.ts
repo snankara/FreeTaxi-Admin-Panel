@@ -1,4 +1,3 @@
-import { MultiResponseModel } from './../../../models/response-models/multi-response-model';
 import { environment } from './../../../../environments/environment.prod';
 import { DriverUpdateResponseModel } from './../models/response-models/driver-update-response-model';
 import { DriverUpdateRequestModel } from './../models/request-models/driver-update-request-model';

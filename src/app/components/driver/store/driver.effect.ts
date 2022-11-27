@@ -1,10 +1,11 @@
+import { CreateResponseToListResponse, mapper } from './../profiles/mapping.profiles';
 import { selectDrivers } from './driver.selectors';
-import { invokeRetrieveAll, retrieveAllSuccess } from './driver.actions';
+import { createDataActions, getDataActions } from './driver.actions';
 import { DriverService } from './../service/driver.service';
 import { Injectable } from "@angular/core";
 import { select, Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY, map, mergeMap, withLatestFrom } from 'rxjs';
+import { catchError, EMPTY, map, mergeMap, withLatestFrom, of, exhaustMap } from 'rxjs';
 
 @Injectable()
 export class DriverEffect {
@@ -17,13 +18,37 @@ export class DriverEffect {
 
     retrieveAllDrivers$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(invokeRetrieveAll),
+            ofType(getDataActions.invokeRetrieveAll),
             withLatestFrom(this.store.pipe(select(selectDrivers))),
             mergeMap(([, driversInStore]) => {
-                return driversInStore.length > 0 ? EMPTY : this.driverService
+                return driversInStore.data && driversInStore.data.length > 0 ? EMPTY : this.driverService
                     .retrieveAll()
-                    .pipe(map((response) => retrieveAllSuccess({ drivers: response })));
-            })
+                    .pipe(
+                        map((response) => {
+                            return getDataActions.retrieveAllSuccess({ drivers: response });
+                        }),
+                        catchError((error) => {
+                            return of(getDataActions.retrieveAllFail({error}))
+                        })
+                    )
+            }),
         )
     );
+
+    createDriver$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(createDataActions.invokeCreate),
+            exhaustMap((action) => {
+                return this.driverService.create(action.driverToBeCreated).pipe(
+                    map((data) => {
+                        let mappedResponseModel = mapper.map(CreateResponseToListResponse, data)
+                        return createDataActions.createSuccess({ createdDriver: mappedResponseModel })
+                    }),
+                    catchError((error) => {
+                        return of(createDataActions.createFail({error}))
+                    })
+                )
+            })
+        )
+    )
 }

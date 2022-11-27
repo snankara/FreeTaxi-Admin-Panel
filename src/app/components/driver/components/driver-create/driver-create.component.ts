@@ -1,13 +1,17 @@
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { createDataActions } from './../../store/driver.actions';
+import { Store, select } from '@ngrx/store';
 import { DriverCreateRequestModel } from './../../models/request-models/driver-create-request-model';
 import { ConfirmService } from './../../../../services/confirm.service';
-import { DriverService } from './../../service/driver.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-driver-create',
   templateUrl: './driver-create.component.html',
-  styleUrls: ['./driver-create.component.scss']
+  styleUrls: ['./driver-create.component.scss'],
+  providers: [MessageService]
 })
 export class DriverCreateComponent implements OnInit {
 
@@ -16,8 +20,9 @@ export class DriverCreateComponent implements OnInit {
 
   driverCreateForm: FormGroup
 
-  constructor(private formBuilder: FormBuilder, private driverService: DriverService,
-    private confirmService: ConfirmService) { }
+  constructor(private formBuilder: FormBuilder,
+    private confirmService: ConfirmService,
+    private store: Store) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -38,22 +43,14 @@ export class DriverCreateComponent implements OnInit {
         if (confirmResult)
           this.save()
       })
-  } 
-
-  save() {
-    // this.driverService.create(this.prepareDriverCreateData()).subscribe({
-    //   next: (v) => console.log(v),
-    //   error: (e) => console.log(e),
-    //   complete: () => console.log("Completed !")
-      
-    // })
-    this.hideDialog();
   }
 
-  prepareDriverCreateData(): DriverCreateRequestModel{
-    let driverCreateRequestModel : DriverCreateRequestModel = Object.assign({userId: 1}, this.driverCreateForm.value)
-    console.log(driverCreateRequestModel);
-    
+  save() {
+    this.store.dispatch(createDataActions.invokeCreate({ driverToBeCreated: this.prepareDriverCreateData() }))
+  }
+
+  prepareDriverCreateData(): DriverCreateRequestModel {
+    let driverCreateRequestModel: DriverCreateRequestModel = Object.assign({ userId: 1 }, this.driverCreateForm.value)
     return driverCreateRequestModel;
   }
 
@@ -64,7 +61,6 @@ export class DriverCreateComponent implements OnInit {
 
   hideDialog() {
     this.driverCreateForm.reset()
-    this.driverCreateDialog = !this.driverCreateDialog;
+    this.driverCreateDialog = false
   }
-
 }

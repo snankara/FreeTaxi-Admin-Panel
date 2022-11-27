@@ -1,3 +1,6 @@
+body {
+  transition: 0.2s ease;
+}
 :root {
   --surface-a:#071426;
   --surface-b:#040d19;

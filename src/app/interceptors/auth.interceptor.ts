@@ -12,12 +12,13 @@ export class AuthInterceptor implements HttpInterceptor {
 
   constructor() {}
 
+  token: string = ''
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     
     let newReq = request.clone({
-      headers: request.headers.set("Authorization", "Bearer ")
-
+      headers: request.headers.set("Authorization", `Bearer ${this.token}`)
     })
+    
     return next.handle(newReq);
   }
 }

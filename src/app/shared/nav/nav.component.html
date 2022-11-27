@@ -1,17 +1,13 @@
 <div class="layout-topbar">
     <a class="layout-topbar-logo" routerLink="">
         <img src="assets/images/{{isLightMode() ? 'logo_light_mode_02' : 'logo_dark_mode_01'}}.png" alt="FreeTaxi logo">
-        <!-- <img src="assets/images/{{isLightMode() ? 'logo_light_mode_02' : 'logo_dark_mode_02'}}.png"alt="FreeTaxi logo"> -->
     </a>
-
     <a class="p-link layout-menu-button layout-topbar-button" href="#" (click)="appMain.toggleMenu($event)">
         <i class="pi pi-bars"></i>
     </a>
-
     <a class="p-link layout-topbar-menu-button layout-topbar-button" href="#" (click)="appMain.toggleTopMenu($event)">
         <i class="pi pi-ellipsis-v"></i>
     </a>
-
     <div class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active':appMain.topMenuActive}">
         <a href="#" class="p-link layout-topbar-button">
             <i class="pi pi-calendar"></i>
