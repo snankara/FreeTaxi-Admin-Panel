@@ -8,7 +8,8 @@ export const getDataActions = createActionGroup({
     events: {
         'Invoke Retrieve All': emptyProps(),
         'Retrieve All Success' : props<{ drivers: DriverListResponseModel[] }>(),
-        'Retrieve All Fail': props<{ error: Error }>()
+        'Retrieve All Fail': props<{ error: Error }>(),
+        'Retrieve All Canceled': emptyProps()
     }
 })
 

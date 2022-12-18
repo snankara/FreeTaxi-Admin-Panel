@@ -23,6 +23,7 @@ export const driverFeature = createFeature({
         on(getDataActions.invokeRetrieveAll, (state) => ({ ...state, loading: true, loaded: false })),
         on(getDataActions.retrieveAllSuccess, (state, { ...data }) => ({ ...state, ...data, loading: false, loaded: true })),
         on(getDataActions.retrieveAllFail, (state) => ({ ...state, loading: false, loaded: false })),
+        on(getDataActions.retrieveAllCanceled, (state) => ({ ...state, loading: false, loaded: false })),
 
         on(createDataActions.invokeCreate, (state) => ({ ...state, loading: true, loaded: false })),
         on(createDataActions.createSuccess, (state, { createdDriver }) => {

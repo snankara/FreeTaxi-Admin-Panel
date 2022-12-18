@@ -5,7 +5,7 @@ import { DriverService } from './../service/driver.service';
 import { Injectable } from "@angular/core";
 import { select, Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, EMPTY, map, mergeMap, withLatestFrom, of, exhaustMap } from 'rxjs';
+import { catchError, EMPTY, map, mergeMap, of, exhaustMap, takeUntil, withLatestFrom } from 'rxjs';
 
 @Injectable()
 export class DriverEffect {
@@ -28,8 +28,9 @@ export class DriverEffect {
                             return getDataActions.retrieveAllSuccess({ drivers: response });
                         }),
                         catchError((error) => {
-                            return of(getDataActions.retrieveAllFail({error}))
-                        })
+                            return of(getDataActions.retrieveAllFail({ error }))
+                        }),
+                        takeUntil(this.actions$.pipe(ofType(getDataActions.retrieveAllCanceled)))
                     )
             }),
         )
@@ -45,7 +46,7 @@ export class DriverEffect {
                         return createDataActions.createSuccess({ createdDriver: mappedResponseModel })
                     }),
                     catchError((error) => {
-                        return of(createDataActions.createFail({error}))
+                        return of(createDataActions.createFail({ error }))
                     })
                 )
             })

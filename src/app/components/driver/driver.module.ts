@@ -25,13 +25,15 @@ import {SkeletonModule} from 'primeng/skeleton';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DriverUpdateComponent } from './components/driver-update/driver-update.component';
 import { DriverListComponent } from './components/driver-list/driver-list.component';
+import { DriverListSkeletonComponent } from './components/driver-list/driver-list-skeleton/driver-list-skeleton.component';
 
 @NgModule({
   declarations: [
     DriverCreateComponent,
     DriverComponent,
     DriverUpdateComponent,
-    DriverListComponent
+    DriverListComponent,
+    DriverListSkeletonComponent
   ],
   imports: [
     CommonModule,

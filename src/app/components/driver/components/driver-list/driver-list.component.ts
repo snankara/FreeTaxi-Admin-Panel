@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { DriverResponseModel } from './../../models/response-models/driver-response-model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-driver-list',
@@ -14,7 +14,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./driver-list.component.scss'],
   providers: [MessageService]
 })
-export class DriverListComponent implements OnInit {
+export class DriverListComponent implements OnInit, OnDestroy {
 
   selectedDrivers: DriverResponseModel[]
   drivers$: Observable<DriverListState> = this.store.select(selectDrivers)
@@ -25,7 +25,6 @@ export class DriverListComponent implements OnInit {
   ngOnInit(): void {
     this.retrieveAll();
     this.isRetrieveAllFail()
-
   }
 
   deleteAll() {
@@ -46,4 +45,9 @@ export class DriverListComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Service Message', detail: 'Retrieve All Failure !' });
     })
   }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(getDataActions.retrieveAllCanceled())
+  }
+
 }

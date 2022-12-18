@@ -1,0 +1,57 @@
+<div class="card">
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+            <div class="flex align-items-end">
+                <p-skeleton width="5.4rem" height="2.8rem" borderRadius="10px"></p-skeleton>
+                <p-skeleton width="3rem" height="2.8rem" borderRadius="10px" styleClass="ml-2"></p-skeleton>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="right">
+            <p-skeleton width="5.4rem" height="2.8rem" borderRadius="10px"></p-skeleton>
+        </ng-template>
+    </p-toolbar>
+    <p-table responsiveLayout="scroll">
+        <ng-template pTemplate="caption">
+            <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                <p-skeleton width="13rem" height="2.2rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
+                <p-skeleton width="18rem" height="2.8rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>
+                    <p-skeleton size="1.5rem" styleClass="mr-2"></p-skeleton>
+                </th>
+                <th>
+                    <p-skeleton width="9rem" height="1.5rem" borderRadius="16px"></p-skeleton>
+                </th>
+                <th>
+                    <p-skeleton width="9rem" height="1.5rem" borderRadius="16px"></p-skeleton>
+                </th>
+                <th>
+                    <p-skeleton width="9rem" height="1.5rem" borderRadius="16px"></p-skeleton>
+                </th>
+                <th>
+                    <p-skeleton width="9rem" height="1.5rem" borderRadius="16px"></p-skeleton>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template>
+            <tr>
+                <td>
+                    <p-skeleton size="1.5rem"></p-skeleton>
+                </td>
+                <td>
+                    <p-skeleton width="9rem" height="1.5rem" borderRadius="16px"></p-skeleton>
+                </td>
+                <td>
+                    <p-skeleton></p-skeleton>
+                </td>
+                <td>
+                    <p-skeleton></p-skeleton>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
