@@ -18,9 +18,9 @@ import { RippleModule } from 'primeng/ripple';
 import { CalendarModule } from 'primeng/calendar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
-import {TooltipModule} from 'primeng/tooltip';
-import {MessagesModule} from 'primeng/messages';
-import {SkeletonModule} from 'primeng/skeleton';
+import { TooltipModule } from 'primeng/tooltip';
+import { MessagesModule } from 'primeng/messages';
+import { SkeletonModule } from 'primeng/skeleton';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DriverUpdateComponent } from './components/driver-update/driver-update.component';

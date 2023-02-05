@@ -4,18 +4,18 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-menu',
   template: `
-  <p-scrollPanel [style]="{width: '100%', height: '100%'}">
-  <div class="layout-menu-container">
-      <ul class="layout-menu" role="menu" (keydown)="onKeydown($event)">
-          <li app-menu class="layout-menuitem-category" *ngFor="let item of model; let i = index;" role="none">
-              <div class="layout-menuitem-root-text" [attr.aria-label]="item.label">{{item.label}}</div>
-              <ul role="menu">
-                  <li app-menuitem *ngFor="let child of item.items" [item]="child" [index]="i" role="none"></li>
-              </ul>
-          </li>
-      </ul>
-  </div>
-  </p-scrollPanel>
+    <p-scrollPanel [style]="{width: '100%', height: '100%'}">
+    <div class="layout-menu-container" #menuPanel>
+        <ul class="layout-menu" role="menu" (keydown)="onKeydown($event)">
+            <li app-menu class="layout-menuitem-category" *ngFor="let item of model; let i = index;" role="none">
+                <div class="layout-menuitem-root-text" [attr.aria-label]="item.label">{{item.label}}</div>
+                <ul role="menu">
+                    <li app-menuitem *ngFor="let child of item.items" [item]="child" [index]="i" role="none"></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    </p-scrollPanel>
 `})
 export class MenuComponent implements OnInit {
 
@@ -40,19 +40,19 @@ export class MenuComponent implements OnInit {
       {
         label: 'Passengers',
         items: [
-          { label: 'Passenger Operations', icon: 'pi pi-users', routerLink: ['a']}
+          { label: 'Passenger Operations', icon: 'pi pi-users', routerLink: ['a'] }
         ]
       },
       {
         label: 'Payments',
         items: [
-          { label: 'Payment Operations', icon: 'pi pi-wallet', routerLink: ['b']}
+          { label: 'Payment Operations', icon: 'pi pi-wallet', routerLink: ['b'] }
         ]
       },
       {
         label: 'Notificatiions',
         items: [
-          { label: 'Notification Operations', icon: 'pi pi-info-circle', routerLink: ['c']}
+          { label: 'Notification Operations', icon: 'pi pi-info-circle', routerLink: ['c'] }
         ]
       }
     ];
@@ -65,6 +65,10 @@ export class MenuComponent implements OnInit {
       nodeElement.click();
       event.preventDefault();
     }
+  }
+
+  isAuthenticated(){
+    return false;
   }
 
 }

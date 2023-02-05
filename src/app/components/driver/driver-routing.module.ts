@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: "", component: DriverComponent,
+    path: "", component: DriverComponent, 
     children: [
       { path: "", component: DriverListComponent }
     ] 

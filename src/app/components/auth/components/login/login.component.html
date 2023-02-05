@@ -1,0 +1,53 @@
+<div class="surface-0 flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+    <div class="grid justify-content-center p-2 lg:p-0" style="min-width:80%">
+        <div class="col-12 mt-5 xl:mt-0 text-center">
+            <img src="assets/images/{{isLightMode() ? 'logo_light_mode_02' : 'logo_dark_mode_02'}}.png"
+                alt="Free Taxi Logo" class="mb-3">
+        </div>
+        <div class="col-12 xl:col-6 login-frame-out">
+            <div class="h-full w-full m-0 py-7 px-4 login-frame-in">
+                <div class="text-center mb-5">
+                    <p-avatar *ngIf="isLightMode()" icon="pi pi-user" size="xlarge" shape="circle"
+                        styleClass="mb-3"></p-avatar>
+                    <p-avatar *ngIf="!isLightMode()" icon="pi pi-user" size="xlarge" shape="circle" styleClass="mb-3"
+                        [style]="{'background-color':'#ffffff', 'color': '#000'}"></p-avatar>
+                    <div class="text-900 text-3xl font-medium mb-3">Welcome !</div>
+                    <span class="text-600 font-medium">Sign in to continue</span>
+                </div>
+                <form [formGroup]="loginForm">
+                    <div class="w-full md:w-10 mx-auto">
+                        <span class="p-float-label mb-5">
+                            <input id="userName" type="text" formControlName="userName" pInputText class="w-full"
+                                style="padding:1rem;">
+                            <label for="userName">User Name</label>
+                        </span>
+
+                        <span class="p-float-label mb-4">
+                            <p-password id="password" formControlName="password" [toggleMask]="true"
+                                styleClass=" w-full p-password p-component p-inputwrapper p-input-icon-right"
+                                [feedback]="false"> 
+                            </p-password>
+                            <label for="password">Password</label>
+                        </span>
+
+                        <div class="flex align-items-center justify-content-between mb-5">
+                            <div class="flex align-items-center">
+                                <p-checkbox id="rememberme1" [binary]="true" styleClass="mr-2"></p-checkbox>
+                                <label for="rememberme1">Remember me</label>
+                            </div>
+                            <a
+                                class="font-medium no-underline ml-2 text-right cursor-pointer login-frame-forgot-password">Forgot
+                                password?</a>
+                        </div>
+                        <div class="flex align-items-center justify-content-center mb-5">
+                            <a class="font-small no-underline mt-2 cursor-pointer" routerLink="/register">
+                                Don't have an account ?</a>
+                        </div>
+                        <button pButton pRipple label="Sign In" class="w-full p-3 text-xl"
+                            [disabled]="loginForm.invalid"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -13,7 +13,6 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { MenuComponent } from './shared/menu/menu.component';
 import { MainComponent } from './shared/main/main.component';
 import { MenuItemComponent } from './shared/menu/menu-item/menu-item.component';
-import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 
@@ -30,6 +29,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { ChartModule } from 'primeng/chart';
+import { AvatarModule } from 'primeng/avatar';
+import { DividerModule } from 'primeng/divider';
+import { SidebarModule } from 'primeng/sidebar';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -39,9 +42,8 @@ import { ChartModule } from 'primeng/chart';
     MenuComponent,
     MainComponent,
     MenuItemComponent,
-    LoginComponent,
     DashboardComponent,
-    NotfoundComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +60,10 @@ import { ChartModule } from 'primeng/chart';
     BadgeModule,
     RippleModule,
     ChartModule,
+    AvatarModule,
+    DividerModule,
+    SidebarModule,
+    TooltipModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })

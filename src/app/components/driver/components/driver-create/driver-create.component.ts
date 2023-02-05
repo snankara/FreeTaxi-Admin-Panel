@@ -49,7 +49,7 @@ export class DriverCreateComponent implements OnInit {
     this.store.dispatch(createDataActions.invokeCreate({ driverToBeCreated: this.prepareDriverCreateData() }))
   }
 
-  prepareDriverCreateData(): DriverCreateRequestModel {
+  prepareDriverCreateData(): DriverCreateRequestModel { 
     let driverCreateRequestModel: DriverCreateRequestModel = Object.assign({ userId: 1 }, this.driverCreateForm.value)
     return driverCreateRequestModel;
   }

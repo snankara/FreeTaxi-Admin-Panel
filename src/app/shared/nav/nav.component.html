@@ -1,6 +1,31 @@
+<p-sidebar [(visible)]="visibleSidebar" position="bottom" [baseZIndex]="10000" styleClass="p-sidebar-md">
+    <div class="text-center mb-5">
+        <div class="text-900 text-3xl font-medium mb-3">How to Create an Account ?</div>
+        <span class="text-600 font-medium">Please choose account.</span>
+    </div>
+    <div class="flex flex-wrap justify-content-center card-container blue-container gap-3">
+        <a class="no-underline cursor-pointer" pRipple pTooltip="Passenger Account" tooltipPosition="left"
+            routerLink="auth/passenger-register">
+            <p-avatar icon="pi pi-users"
+                [style]="{'background-color':(isLightMode()) ? '#dee2e6' : '#FFF', 'color': '#000'}"
+                styleClass="flex align-items-center justify-content-center" size="xlarge"></p-avatar>
+        </a>
+        <a class="no-underline cursor-pointer" pRipple pTooltip="Driver Account" tooltipPosition="right"
+            routerLink="auth/driver-register">
+            <p-avatar icon="pi pi-car"
+                [style]="{'background-color':(isLightMode()) ? '#dee2e6' : '#FFF', 'color': '#000'}"
+                styleClass="flex align-items-center justify-content-center" size="xlarge"></p-avatar>
+        </a>
+    </div>
+    <div class="flex align-items-center justify-content-center mt-3">
+        <a class="font-medium no-underline mt-2 cursor-pointer forgot-password" routerLink="/login">
+            Have an account ?</a>
+    </div>
+</p-sidebar>
+
 <div class="layout-topbar">
     <a class="layout-topbar-logo" routerLink="">
-        <img src="assets/images/{{isLightMode() ? 'logo_light_mode_02' : 'logo_dark_mode_01'}}.png" alt="FreeTaxi logo">
+        <img src="assets/images/{{isLightMode() ? 'logo_light_mode_02' : 'logo_dark_mode_01'}}.png" alt="FreeTaxi Logo">
     </a>
     <a class="p-link layout-menu-button layout-topbar-button" href="#" (click)="appMain.toggleMenu($event)">
         <i class="pi pi-bars"></i>
@@ -8,22 +33,33 @@
     <a class="p-link layout-topbar-menu-button layout-topbar-button" href="#" (click)="appMain.toggleTopMenu($event)">
         <i class="pi pi-ellipsis-v"></i>
     </a>
+
     <div class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active':appMain.topMenuActive}">
-        <a href="#" class="p-link layout-topbar-button">
-            <i class="pi pi-calendar"></i>
-            <span>Calendar</span>
-        </a>
-        <a href="#" class="p-link layout-topbar-button">
-            <i class="pi pi-cog"></i>
-            <span>Settings</span>
-        </a>
-        <a href="#" class="p-link layout-topbar-button">
-            <i class="pi pi-user"></i>
-            <span>Profile</span>
-        </a>
-        <button pButton pRipple type="button" (click)="modeService.changeMode()"
+        <div *ngIf="isAuthenticated()">
+            <a href="#" class="p-link layout-topbar-button">
+                <i class="pi pi-calendar"></i>
+                <span>Calendar</span>
+            </a>
+            <a href="#" class="p-link layout-topbar-button">
+                <i class="pi pi-cog"></i>
+                <span>Settings</span>
+            </a>
+            <a href="#" class="p-link layout-topbar-button">
+                <i class="pi pi-user"></i>
+                <span>Profile</span>
+            </a>
+        </div>
+        <div *ngIf="!isAuthenticated()">
+            <button pButton pRipple type="button" label="Register" class="p-button-text"
+                (click)="visibleSidebar = true"></button>
+            <button pButton pRipple type="button" label="Login" class="p-button-text p-button-plain"
+                routerLink="/auth/login"></button>
+        </div>
+
+        <button pButton pRipple type="button" (click)="changeMode()"
             icon="{{isLightMode() ? 'pi pi-circle' : 'pi pi-sun'}}"
-            class="p-button-rounded p-button-secondary p-button-outlined ml-3">
-        </button>
+            class="p-button-rounded p-button-secondary p-button-text"></button>
+
     </div>
+
 </div>

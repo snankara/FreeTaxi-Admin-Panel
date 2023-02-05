@@ -1,6 +1,6 @@
+import { AuthGuard } from './guards/auth.guard';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { LoginComponent } from './components/login/login.component';
 import { MainComponent } from './shared/main/main.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -8,13 +8,14 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
 
   {
-    path: "", component: MainComponent,
+    path: "", component: MainComponent, canActivate: [AuthGuard],
     children: [
       { path: "", component: DashboardComponent },
       { path: "driveroperations", loadChildren: () => import('./components/driver/driver.module').then(m => m.DriverModule) }
     ]
   },
-  { path: "login", component: LoginComponent },
+
+  { path: "auth", loadChildren: () => import('./components/auth/auth.module').then(m => m.AuthModule) },
   { path: 'notfound', component: NotfoundComponent },
   { path: '**', redirectTo: 'notfound' }
 
